@@ -1,195 +1,344 @@
-# Universal AI Dotfolder
+# Universal AI Engineering Dotfolder
 
-A portable, bounded engineering toolkit for Cursor, Claude Code, and Google
-Antigravity. It combines a strict workspace contract, reusable slash workflows,
-an on-demand software-engineering persona registry, an always-on architecture
-guard, and eight executable skills for systems, algorithm, and pipeline work.
+A portable software-engineering control plane for a computer science student
+using Cursor, Claude Code, and Google Antigravity. It combines 50 specialist
+agent personas, 56 on-demand skills, 53 slash routes per supported command host,
+20 Cursor rules (5 global and 15 conditional), and deterministic local
+validation.
 
-## Native placement
+The design assumes prompts may be short. Safe ambiguity is silently expanded
+into a professional execution contract; decision-changing ambiguity triggers a
+focused requirement grill. Every implementation remains subject to memory,
+resource, complexity, architecture, security, testing, and evidence checks.
 
-This repository is the canonical payload. Copy only the artifacts a host
-discovers after reviewing destination conflicts:
+## Architecture
+
+```text
+universal-ai-dotfolder/
+├── .gitignore                local Python and test artifact exclusions
+├── AGENTS.md                 canonical workspace policy and routing registry
+├── CLAUDE.md                 Claude Code import bridge
+├── agents/                   50 flat portable persona definitions
+├── commands/                 53 Cursor and Claude Code slash commands
+├── workflows/                53 Antigravity slash trajectories
+├── rules/                    20 Cursor rule files
+├── skills/                   56 on-demand skill packages
+│   └── skill-name/
+│       ├── SKILL.md          routing description and operating contract
+│       ├── agents/
+│       │   └── openai.yaml   concise discovery metadata
+│       ├── references/       deep guidance only where the skill requires it
+│       └── utility.py        present only for executable utility skills
+├── scripts/
+│   └── validate_workspace.py deterministic registry and structure validator
+└── tests/
+    └── test_validate_workspace.py validator regression tests
+```
+
+Each skill is self-contained and loaded only after routing selects it. The
+always-loaded context therefore stays compact even though the toolkit covers a
+wide engineering surface.
+
+```mermaid
+flowchart LR
+    U[User request] --> C[Root workspace contract]
+    C --> D{Material decision missing?}
+    D -->|No| P[Silent prompt upscaling]
+    D -->|Yes| G[Focused requirement grill]
+    P --> A[Primary agent persona]
+    G --> A
+    A --> S[Primary skill]
+    S --> R[Applicable rules]
+    R --> V[Executed validation and concise handoff]
+```
+
+## Native Placement
+
+This repository is the canonical payload. Review destination conflicts before
+copying host-native artifacts.
 
 | Host | Project placement |
 |---|---|
-| Cursor | `agents/*.md` → `.cursor/agents/`, `commands/` → `.cursor/commands/`, `rules/` → `.cursor/rules/`, `skills/` → `.cursor/skills/` |
-| Claude Code | `agents/*.md` → `.claude/agents/`, `commands/` → `.claude/commands/`, `skills/` → `.claude/skills/` |
-| Antigravity | `agents/*.md` → `.agents/agents/`, `workflows/` → `.agents/workflows/`, `skills/` → `.agents/skills/` |
+| Cursor | `agents/*.md` → `.cursor/agents/`; `commands/` → `.cursor/commands/`; `rules/` → `.cursor/rules/`; `skills/` → `.cursor/skills/` |
+| Claude Code | `agents/*.md` → `.claude/agents/`; `commands/` → `.claude/commands/`; `skills/` → `.claude/skills/` |
+| Antigravity | `agents/*.md` → `.agents/agents/`; `workflows/` → `.agents/workflows/`; `skills/` → `.agents/skills/` |
 
-For machine-wide reuse, copy reviewed profiles to `~/.cursor/agents/`,
-`~/.claude/agents/`, or `~/.gemini/config/agents/` respectively. Prefer
-project placement when a persona encodes repository-specific constraints.
+Keep `AGENTS.md` at the project root. Cursor and Antigravity read it as
+workspace context. Claude Code reads `CLAUDE.md`, which imports `AGENTS.md`, so
+all three hosts share one policy body.
 
-Keep `AGENTS.md` at the project root. Cursor and Antigravity load it as
-workspace context. The included `CLAUDE.md` imports it for Claude Code, avoiding
-a duplicated policy body.
+Rules are expressed as Cursor `.mdc` files because Cursor discovers that format
+natively. Their essential safety, architecture, ambiguity, and evidence
+requirements are also present in `AGENTS.md`, so Claude Code and Antigravity do
+not lose the core guardrails.
 
-## Layout
+For machine-wide reuse, install reviewed agent profiles in
+`~/.cursor/agents/`, `~/.claude/agents/`, or `~/.gemini/config/agents/`.
+Project-local placement is safer when a profile or skill contains
+repository-specific behavior.
 
-```text
-AGENTS.md
-CLAUDE.md
-agents/
-  accessibility-engineer.md
-  ai-systems-engineer.md
-  algorithm-engineer.md
-  application-engineer.md
-  backend-engineer.md
-  build-release-engineer.md
-  cloud-infrastructure-engineer.md
-  code-reviewer.md
-  compiler-toolchain-engineer.md
-  contract-compatibility-engineer.md
-  data-engineer.md
-  database-storage-engineer.md
-  debugging-investigator.md
-  desktop-engineer.md
-  developer-experience-engineer.md
-  distributed-systems-engineer.md
-  documentation-engineer.md
-  embedded-firmware-engineer.md
-  engineering-manager.md
-  frontend-engineer.md
-  full-stack-engineer.md
-  game-engineer.md
-  generalist-software-engineer.md
-  graphics-realtime-engineer.md
-  kernel-engineer.md
-  machine-learning-engineer.md
-  mlops-engineer.md
-  mobile-engineer.md
-  networking-protocol-engineer.md
-  performance-engineer.md
-  platform-devops-engineer.md
-  principal-software-architect.md
-  repository-maintainer.md
-  research-engineer.md
-  robotics-controls-engineer.md
-  security-engineer.md
-  site-reliability-engineer.md
-  solutions-architect.md
-  staff-software-engineer.md
-  systems-programming-engineer.md
-  technical-interviewer.md
-  technical-lead.md
-  test-reliability-engineer.md
-commands/
-  audit.md
-  grill.md
-  map.md
-  test.md
-  upscale.md
-workflows/
-  audit.md
-  grill.md
-  map.md
-  test.md
-  upscale.md
-rules/
-  01-architecture-guard.mdc
-skills/
-  architecture-mapper/
-  code-griller/
-  git-manager/
-  mem-leak-auditor/
-  prompt-upscaler/
-  repo-search/
-  shell-exec/
-  test-generator/
-```
+## How Each Platform Interacts
 
-## Agent Registry
+### Cursor
 
-The flat `agents/` directory is the source of truth. Flat files are deliberate:
-all three hosts can consume the same minimal YAML and Markdown body without
-category-path rewriting. Each profile contains:
+1. Root `AGENTS.md` establishes the workspace contract and portable aliases.
+2. `.cursor/rules/*.mdc` attaches the five short global rules and only the
+   language or domain rules whose globs or descriptions match the active work.
+3. `.cursor/commands/*.md` exposes the slash routes.
+4. `.cursor/agents/*.md` enables native specialist delegation from profile
+   descriptions; `/backend-engineer` explicitly selects that persona.
+5. `.cursor/skills/*/SKILL.md` supplies the selected task method without loading
+   the entire library.
 
-- a unique lowercase `name`;
-- a routing-focused `description`;
-- `model: inherit` for host-selected model policy;
-- Role, Scope, Guardrails, Workflow, and Output Contract sections.
+`@agents/backend-engineer.md` attaches the canonical file as context. Native
+agent selection and a file attachment are distinct operations.
 
-Host-specific tool lists are intentionally omitted because tool identifiers and
-permission semantics differ. Apply least-privilege tool restrictions in the
-deployed native copy; the workspace permission policy remains authoritative.
+### Claude Code
 
-`AGENTS.md` declares every alias and defines resolution order. It routes by
-responsibility rather than programming language, keeping the always-loaded
-registry compact while the full persona is loaded only when needed.
+1. Root `CLAUDE.md` imports `AGENTS.md`.
+2. `.claude/commands/*.md` exposes the same slash routes as Cursor.
+3. `.claude/agents/*.md` enables automatic delegation by description,
+   `@agent-backend-engineer` for a specific task, and
+   `claude --agent backend-engineer` for a session.
+4. `.claude/skills/*/SKILL.md` provides the routed workflow and any bounded
+   utility or reference it names.
 
-Common title variants compose existing profiles:
+Plain `@agents/backend-engineer.md` imports file context; it does not create a
+native isolated subagent.
 
-| Title or task | Primary profile | Optional supporting profile |
-|---|---|---|
-| Product engineer | `@application-engineer` | `@full-stack-engineer` for web vertical slices |
-| API engineer | `@backend-engineer` | `@contract-compatibility-engineer` |
-| SDET, QA, or test engineer | `@test-reliability-engineer` | relevant implementation profile |
-| Application security engineer | `@security-engineer` | relevant application profile |
-| DevSecOps engineer | `@platform-devops-engineer` | `@security-engineer` |
-| Data scientist | `@machine-learning-engineer` | `@research-engineer` |
-| Application database or migration engineer | `@backend-engineer` | `@contract-compatibility-engineer` |
-| Storage-engine or query engineer | `@database-storage-engineer` | `@performance-engineer` |
-| Database administrator or reliability engineer | `@database-storage-engineer` | `@site-reliability-engineer` |
-| Infrastructure engineer | `@cloud-infrastructure-engineer`, `@platform-devops-engineer`, or `@site-reliability-engineer` by dominant risk | `@security-engineer` |
-| MLOps engineer | `@mlops-engineer` | `@machine-learning-engineer` or `@platform-devops-engineer` |
-| Blockchain or smart-contract engineer | `@distributed-systems-engineer` | `@security-engineer` |
-| AR, VR, audio, or video engineer | `@graphics-realtime-engineer` | relevant application profile |
-| Privacy engineer | `@security-engineer` | `@contract-compatibility-engineer` |
+### Google Antigravity
 
-Language and framework expertise is task context, not a separate persona.
-For example, a Rust network service routes to
-`@networking-protocol-engineer`, while a React interface routes to
-`@frontend-engineer`.
+1. Root `AGENTS.md` supplies workspace policy and alias resolution.
+2. `.agents/agents/*.md` exposes native custom agents; `/agents` lists or
+   switches them and the planner may delegate by profile description.
+3. `.agents/workflows/*.md` binds each slash name to its deterministic
+   trajectory.
+4. `.agents/skills/*/SKILL.md` supplies the selected operating contract.
 
-## How Platforms Use the Registry
+Antigravity consumes `workflows/`, while Cursor and Claude Code consume
+`commands/`. Every basename is paired, so `/profile`, `/frontend`, or `/audit`
+has the same intent across hosts.
 
-Behavior below was verified against official documentation on 2026-07-29.
+Without native installation, use a portable instruction such as
+`Use @agents/backend-engineer.md for this API change`. The root registry tells
+the active model to adopt the attached profile for that task. This does not
+create an isolated subagent.
 
-| Platform | Workspace contract | Native profile discovery | Native selection or delegation | Portable `@file` use |
-|---|---|---|---|---|
-| Antigravity | Reads root `AGENTS.md` automatically. | Copy profiles to `.agents/agents/` as flat Markdown files. Folder-based `agent.md` profiles are also supported. | `/agents` lists and switches primary agents; the planner can delegate to profiles using their descriptions. | `@agents/backend-engineer.md` attaches file context. It does not natively switch agents. |
-| Cursor | Reads root `AGENTS.md` automatically alongside `.cursor/rules`. | Copy profiles to `.cursor/agents/`. | The parent can delegate automatically from `description`; `/backend-engineer` explicitly invokes the profile. | `@agents/backend-engineer.md` attaches file context. It does not register a subagent. |
-| Claude Code | Loads `CLAUDE.md`, which imports root `AGENTS.md`. | Copy profiles to `.claude/agents/`; discovery is recursive. | Automatic delegation uses `description`; agent typeahead or `@agent-backend-engineer` guarantees one-task use; `claude --agent backend-engineer` applies it session-wide. | Plain `@agents/backend-engineer.md` imports file context. Native agent mentions are distinct typed entries. |
-
-Without native installation, prompt with
-`Use @agents/backend-engineer.md for this API change`. The file is attached as
-context and the root registry instructs the active model to adopt that profile
-for the task. This portable path does not create an isolated subagent.
-
-Before copying profiles into a host directory, inspect existing definitions for
-name collisions. Project-level native profiles may override user-level profiles
-with the same name. Recopy intentionally when the canonical `agents/` profile
-changes.
-
-Official references:
+Platform behavior and placement were checked against official documentation on
+2026-07-29:
 
 - [Antigravity custom agents](https://antigravity.google/docs/subagents) and
-  [root workspace context](https://antigravity.google/docs/cli/best-practices)
-- [Cursor custom subagents](https://cursor.com/docs/subagents.md),
-  [rules and `AGENTS.md`](https://cursor.com/docs/rules.md), and
+  [workspace context](https://antigravity.google/docs/cli/best-practices)
+- [Cursor subagents](https://cursor.com/docs/subagents.md),
+  [rules](https://cursor.com/docs/rules.md), and
   [`@` context](https://cursor.com/docs/agent/prompting.md)
-- [Claude Code custom subagents](https://code.claude.com/docs/en/sub-agents) and
-  [workspace memory imports](https://code.claude.com/docs/en/memory)
+- [Claude Code subagents](https://code.claude.com/docs/en/sub-agents) and
+  [workspace memory](https://code.claude.com/docs/en/memory)
 
-Every skill contains a router-compatible `SKILL.md` and one executable,
-standard-library Python entry point. The scripts use direct argument vectors,
-bounded traversal or output, deterministic ordering, explicit workspace roots,
-and structured failures.
+## Agent Persona Registry
 
-## Slash workflows
+Profiles are flat for cross-host portability. Every file has a unique
+lowercase-hyphenated name, a routing-focused description, `model: inherit`, and
+Role, Scope, Guardrails, Workflow, and Output Contract sections.
 
-- `/upscale` converts loose text into a four-part execution specification.
-- `/grill` produces a severity-ranked static engineering critique.
-- `/audit` combines static ownership analysis with strict C and Valgrind checks.
-- `/test` generates a non-overwriting Python or C regression smoke harness.
-- `/map` emits a deterministic Mermaid dependency and inferred-call graph.
+### Leadership and Architecture
 
-## Runtime requirements
+`principal-software-architect`, `solutions-architect`,
+`staff-software-engineer`, `technical-lead`, `engineering-manager`,
+`generalist-software-engineer`
 
-- Python 3.10 or newer
-- Git for `git-manager`
-- A C compiler and Valgrind for live `mem-leak-auditor` runs
+### Product, Experience, and Applications
 
-Run a utility with `--help` for its bounded interface. Memory auditing and
-generated test execution run local code with the user's ordinary access; their
-timeouts and resource limits are safeguards, not a security sandbox.
+`product-manager`, `user-experience-designer`, `application-engineer`,
+`frontend-engineer`, `backend-engineer`, `full-stack-engineer`,
+`mobile-engineer`, `desktop-engineer`, `game-engineer`,
+`accessibility-engineer`
+
+### Systems and Domain Engineering
+
+`systems-programming-engineer`, `embedded-firmware-engineer`,
+`kernel-engineer`, `compiler-toolchain-engineer`,
+`distributed-systems-engineer`, `networking-protocol-engineer`,
+`database-storage-engineer`, `graphics-realtime-engineer`,
+`robotics-controls-engineer`, `digital-hardware-engineer`,
+`scientific-computing-engineer`, `reverse-engineering-engineer`
+
+### Algorithms, Data, AI, and Education
+
+`algorithm-engineer`, `formal-methods-engineer`, `data-engineer`,
+`machine-learning-engineer`, `mlops-engineer`, `ai-systems-engineer`,
+`research-engineer`, `computer-science-educator`
+
+### Assurance, Delivery, and Operations
+
+`debugging-investigator`, `code-reviewer`, `test-reliability-engineer`,
+`security-engineer`, `performance-engineer`,
+`contract-compatibility-engineer`, `repository-maintainer`,
+`build-release-engineer`, `platform-devops-engineer`,
+`cloud-infrastructure-engineer`, `site-reliability-engineer`,
+`developer-experience-engineer`, `documentation-engineer`,
+`technical-interviewer`
+
+Route by dominant responsibility, not language. `AGENTS.md` selects one primary
+profile and at most two supporting profiles when ownership boundaries genuinely
+cross.
+
+## Skill Toolkit
+
+### Intent, Planning, and Learning
+
+`requirement-griller`, `prompt-upscaler`, `task-planner`,
+`assumption-auditor`, `learning-tutor`, `interview-coach`, `rubber-duck`,
+`code-explainer`
+
+### Architecture and Interface Design
+
+`architecture-decision`, `architecture-mapper`, `change-impact-analyzer`,
+`frontend-design`, `api-designer`, `database-designer`,
+`distributed-systems-design`, `systems-programming`, `algorithm-designer`,
+`cli-designer`, `configuration-designer`, `error-handling`,
+`observability-design`
+
+### Review, Correctness, and Security
+
+`code-griller`, `code-review`, `edge-case-hunter`, `complexity-coach`,
+`invariant-miner`, `concurrency-review`, `security-threat-model`,
+`accessibility-auditor`, `privacy-review`
+
+### Test Engineering
+
+`test-strategy`, `test-generator`, `property-test-designer`,
+`fuzzing-strategy`, `coverage-analyzer`, `mutation-tester`
+
+### Diagnostics and Performance
+
+`debugging-playbook`, `execution-tracer`, `reproducer-builder`,
+`regression-bisector`, `sanitizer-runner`, `mem-leak-auditor`,
+`performance-profiler`, `benchmark-harness`
+
+### Change, Delivery, and Repository Work
+
+`project-bootstrapper`, `refactoring-guide`, `dependency-upgrader`,
+`migration-planner`, `ci-pipeline-builder`, `release-readiness`,
+`incident-postmortem`, `documentation-writer`, `adr-writer`, `git-manager`,
+`shell-exec`, `repo-search`
+
+The `requirement-griller` asks one to five decision-linked questions only after
+read-only inspection proves the answer is not locally discoverable. The
+`prompt-upscaler` has two modes: implicit use silently drives execution, while
+explicit `/upscale` returns only Context, Constraints, Objective, and Exact
+Output.
+
+The `frontend-design` skill inspects the existing product language before
+choosing one coherent visual thesis. It rejects generic gradient, glass,
+card-grid, pill-everything, empty oversized hero, emoji-icon, and decorative
+reveal defaults. Its gates cover semantic markup, keyboard operation, visible
+focus, WCAG AA contrast, reduced motion, UI states, touch targets, content
+stress, narrow phones, tablets, desktop widths, and short laptop heights.
+
+Eight skills include executable standard-library utilities:
+
+| Skill | Utility | Purpose |
+|---|---|---|
+| `prompt-upscaler` | `upscale.py` | Deterministic four-part prompt structuring |
+| `code-griller` | `grill.py` | Bounded severity-ranked static review |
+| `shell-exec` | `exec.py` | Direct-argument process execution with timeout and output caps |
+| `git-manager` | `git_sync.py` | Concise state, explicit staging, history, and SSH diagnostics |
+| `repo-search` | `search.py` | Ranked bounded repository search |
+| `mem-leak-auditor` | `audit_memory.py` | Strict C compilation and bounded Valgrind parsing |
+| `test-generator` | `build_tests.py` | Non-overwriting Python or C regression harness generation |
+| `architecture-mapper` | `map_repo.py` | Deterministic Mermaid dependency and inferred-call mapping |
+
+## Slash Route Catalog
+
+Commands and workflows share basenames. The route reads its mapped `SKILL.md`,
+preserves trailing arguments as task input, inspects relevant context, and
+applies that skill's output and mutation contract.
+
+### Intent and Learning
+
+`/upscale`, `/grill-me`, `/plan`, `/assumptions`, `/explain`, `/learn`,
+`/interview`, `/rubber-duck`
+
+### Design and Architecture
+
+`/design`, `/impact`, `/frontend`, `/api`, `/database`, `/systems`, `/race`,
+`/distributed`, `/algorithm`, `/cli`, `/config`, `/errors`, `/observability`,
+`/map`
+
+### Review and Risk
+
+`/grill`, `/review`, `/audit`, `/edge-cases`, `/complexity`, `/invariants`,
+`/threat-model`, `/a11y`, `/privacy`
+
+### Testing
+
+`/test`, `/test-strategy`, `/property-test`, `/fuzz`, `/coverage`, `/mutate`
+
+### Diagnostics and Performance
+
+`/debug`, `/trace`, `/repro`, `/bisect`, `/sanitize`, `/profile`, `/bench`
+
+### Change and Delivery
+
+`/bootstrap`, `/refactor`, `/dependencies`, `/migrate`, `/ci`, `/release`,
+`/postmortem`, `/docs`, `/adr`
+
+Read-only review routes never modify code unless the user separately requests a
+fix. Mutating routes remain bounded by the user's original scope and approval
+requirements.
+
+## Rule Set
+
+Five concise rules are always on:
+
+- `01-architecture-guard.mdc`
+- `02-requirements-upscale.mdc`
+- `03-student-learning.mdc`
+- `04-evidence-before-claims.mdc`
+- `17-change-hygiene.mdc`
+
+The remaining rules attach by file match or model decision:
+
+- language and runtime: `05-c-cpp-safety.mdc`,
+  `06-rust-unsafe-boundaries.mdc`, `07-python-correctness.mdc`,
+  `08-concurrency-discipline.mdc`, `09-network-io.mdc`;
+- data and contracts: `10-storage-migrations.mdc`,
+  `16-contract-evolution.mdc`;
+- security and quality: `11-security-privacy.mdc`, `12-test-quality.mdc`,
+  `13-frontend-quality.mdc`, `14-benchmark-rigor.mdc`,
+  `18-documentation-evidence.mdc`, `19-ai-tool-boundaries.mdc`;
+- delivery and provenance: `15-build-reproducibility.mdc`,
+  `20-dependency-supply-chain.mdc`.
+
+## Validation
+
+Run the complete deterministic structural audit:
+
+```bash
+./scripts/validate_workspace.py
+```
+
+It verifies agent and skill frontmatter, unique names, root declarations, skill
+UI metadata, command/workflow parity and skill targets, rule ordering, local
+Markdown links, forbidden unfinished markers, Python syntax, and executable
+bits.
+
+Run the validator's regression tests:
+
+```bash
+python3 -m unittest -v tests/test_validate_workspace.py
+```
+
+Validate skill packages against the official skill-authoring contract:
+
+```bash
+for skill in skills/*; do
+  python3 /home/rahulb/.codex/skills/.system/skill-creator/scripts/quick_validate.py "$skill"
+done
+```
+
+Runtime requirements are Python 3.10 or newer, Git for `git-manager`, and a C
+compiler plus Valgrind for live memory audits. Local code execution uses the
+user's ordinary operating-system access; time and output limits reduce risk but
+are not a security sandbox.

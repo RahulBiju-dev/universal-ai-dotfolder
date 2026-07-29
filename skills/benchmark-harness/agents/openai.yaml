@@ -1,0 +1,4 @@
+interface:
+  display_name: "Benchmark Harness"
+  short_description: "Build reproducible performance benchmarks"
+  default_prompt: "Use $benchmark-harness to measure this performance claim reproducibly."

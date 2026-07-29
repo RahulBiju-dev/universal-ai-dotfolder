@@ -1,0 +1,4 @@
+interface:
+  display_name: "Incident Postmortem"
+  short_description: "Build blameless, evidence-based postmortems"
+  default_prompt: "Use $incident-postmortem to reconstruct this incident and define verifiable corrective actions."

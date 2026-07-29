@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rubber Duck"
+  short_description: "Guide evidence-first Socratic debugging"
+  default_prompt: "Use $rubber-duck to help me reason through this problem one question at a time."

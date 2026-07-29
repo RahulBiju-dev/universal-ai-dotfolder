@@ -1,0 +1,4 @@
+interface:
+  display_name: "Execution Tracer"
+  short_description: "Trace runtime behavior with bounded evidence"
+  default_prompt: "Use $execution-tracer to collect bounded runtime evidence for this failure."

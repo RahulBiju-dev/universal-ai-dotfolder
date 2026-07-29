@@ -1,0 +1,4 @@
+interface:
+  display_name: "Privacy Review"
+  short_description: "Trace data lifecycles and privacy risk"
+  default_prompt: "Use $privacy-review to trace sensitive data through collection, use, retention, sharing, and deletion."

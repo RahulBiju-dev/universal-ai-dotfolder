@@ -1,0 +1,4 @@
+interface:
+  display_name: "Requirement Griller"
+  short_description: "Resolve ambiguity before implementation"
+  default_prompt: "Use $requirement-griller to resolve material ambiguities before implementation."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Regression Bisector"
+  short_description: "Locate regressions with safe history search"
+  default_prompt: "Use $regression-bisector to locate the first revision that introduced this failure safely."

@@ -1,0 +1,19 @@
+---
+description: "Audit shared state, ordering, cancellation, and liveness whenever code introduces concurrency."
+globs: ""
+alwaysApply: false
+---
+
+# Concurrency Discipline
+
+- Identify shared mutable state, its owner, synchronization primitive, and
+  happens-before relation.
+- Define lock ordering and never call unknown, blocking, or re-entrant code
+  while holding a lock without a proof.
+- Bound queues, workers, retries, fan-out, and waiting.
+- Make cancellation, timeout, shutdown, and partial startup idempotent.
+- Preserve errors from child tasks and join or release every spawned activity.
+- Check races, deadlocks, starvation, lost wakeups, duplicate work, stale reads,
+  and ordering assumptions.
+- Prefer message passing or immutable snapshots when they simplify the proof.
+- Add deterministic coordination tests; do not rely on sleeps as correctness.

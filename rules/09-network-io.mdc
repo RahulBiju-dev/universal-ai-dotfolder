@@ -1,0 +1,20 @@
+---
+description: "Harden protocol and network code against partial I/O, hostile input, retries, and unbounded resource use."
+globs: ""
+alwaysApply: false
+---
+
+# Network and I/O
+
+- Treat every remote byte, header, frame, status, redirect, and length as
+  untrusted.
+- Bound message size, buffering, decompression, concurrency, retries, and total
+  elapsed time.
+- Handle partial reads and writes, disconnects, duplicate delivery, reordering,
+  timeout, cancellation, and protocol-version mismatch.
+- Make retryable mutations idempotent or attach a stable idempotency key.
+- Validate certificates, host identity, authentication, authorization, and
+  redirect boundaries using established libraries.
+- Do not log secrets or sensitive payloads.
+- Test fragmented input, malformed framing, slow peers, dependency failure, and
+  clean resource release.

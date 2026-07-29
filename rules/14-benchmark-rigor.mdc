@@ -1,0 +1,19 @@
+---
+description: "Require reproducible, statistically honest benchmarks that measure the intended bottleneck."
+globs: "**/{bench,benches,benchmark,benchmarks,perf}/**,**/*{bench,benchmark,perf}*"
+alwaysApply: false
+---
+
+# Benchmark Rigor
+
+- State the hypothesis, workload, input distribution, scale, metric, and
+  acceptable regression before measuring.
+- Separate setup, warmup, measurement, teardown, and correctness verification.
+- Prevent dead-code elimination, cache accidents, hidden I/O, logging, and
+  differing semantics from distorting comparisons.
+- Record environment, versions, compiler flags, concurrency, repetitions, and
+  dispersion, not only the best run.
+- Compare like with like and report uncertainty, outliers, and practical
+  significance.
+- Retain a deterministic representative workload and a correctness oracle.
+- Never claim an optimization from an unrepeatable single measurement.

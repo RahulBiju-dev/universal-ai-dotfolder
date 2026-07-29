@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Bootstrapper"
+  short_description: "Scaffold safe, testable project foundations"
+  default_prompt: "Use $project-bootstrapper to scaffold a minimal, safe, and testable foundation for this project."

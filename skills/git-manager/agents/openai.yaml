@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Manager"
+  short_description: "Summarize and safely stage Git changes"
+  default_prompt: "Use $git-manager to inspect concise Git state and stage only explicit targets."

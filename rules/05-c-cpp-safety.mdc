@@ -1,0 +1,18 @@
+---
+description: "Enforce explicit ownership, bounds, undefined-behavior prevention, and strict diagnostics in C and C++."
+globs: "**/*.{c,h,cc,cpp,cxx,hpp,hxx}"
+alwaysApply: false
+---
+
+# C and C++ Safety
+
+- Assign one owner to every allocation, descriptor, mapping, lock, and thread.
+- Check allocation, arithmetic, conversion, indexing, I/O, and syscall results.
+- Prove pointer arithmetic remains within one valid object and lifetime.
+- Handle partial initialization, short I/O, `EINTR`, timeout, and every cleanup
+  path without double release.
+- Prefer RAII and value semantics in C++; use one auditable cleanup path in C.
+- Reject unbounded C string operations, signed-size confusion, integer overflow,
+  use-after-free, strict-aliasing violations, and data races.
+- Compile changed code with strict warnings; use sanitizers or Valgrind when
+  execution is safe and relevant.

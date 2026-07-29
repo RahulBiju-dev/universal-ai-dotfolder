@@ -1,0 +1,4 @@
+interface:
+  display_name: "Property Test Designer"
+  short_description: "Design high-value property-based tests"
+  default_prompt: "Use $property-test-designer to derive strong properties and bounded generators for this code."

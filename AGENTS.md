@@ -60,8 +60,12 @@ invocation require the host-specific placement documented in `README.md`.
 - `@generalist-software-engineer` → `agents/generalist-software-engineer.md` —
   default implementation for work without a dominant specialist risk.
 
-### Product and Application Engineering
+### Product, Experience, and Application Engineering
 
+- `@product-manager` → `agents/product-manager.md` — user problems, outcomes,
+  prioritization, scope boundaries, success metrics, and roadmap tradeoffs.
+- `@user-experience-designer` → `agents/user-experience-designer.md` — user
+  flows, information architecture, interaction, usability, and visual hierarchy.
 - `@application-engineer` → `agents/application-engineer.md` — complete
   user-facing or service behavior within an established architecture.
 - `@frontend-engineer` → `agents/frontend-engineer.md` — browser interfaces,
@@ -87,6 +91,8 @@ invocation require the host-specific placement documented in `README.md`.
 - `@embedded-firmware-engineer` → `agents/embedded-firmware-engineer.md` —
   constrained devices, peripherals, interrupts, timing, and hardware-facing
   reliability.
+- `@digital-hardware-engineer` → `agents/digital-hardware-engineer.md` — RTL,
+  clocks, resets, CDC, synthesis, timing closure, and hardware verification.
 - `@kernel-engineer` → `agents/kernel-engineer.md` — kernel subsystems, drivers,
   synchronization, privilege boundaries, and ABI correctness.
 - `@compiler-toolchain-engineer` → `agents/compiler-toolchain-engineer.md` —
@@ -105,11 +111,20 @@ invocation require the host-specific placement documented in `README.md`.
   stability.
 - `@robotics-controls-engineer` → `agents/robotics-controls-engineer.md` —
   sensing, estimation, planning, control loops, timing, and fail-safe behavior.
+- `@reverse-engineering-engineer` →
+  `agents/reverse-engineering-engineer.md` — authorized binary, firmware,
+  bytecode, protocol, and file-format behavioral reconstruction.
 
-### Algorithms, Data, and AI
+### Algorithms, Data, AI, and Formal Analysis
 
 - `@algorithm-engineer` → `agents/algorithm-engineer.md` — invariants,
   correctness arguments, adversarial cases, and time-space optimization.
+- `@formal-methods-engineer` → `agents/formal-methods-engineer.md` — formal
+  specifications, temporal properties, proof obligations, model checking, and
+  refinement verification.
+- `@scientific-computing-engineer` →
+  `agents/scientific-computing-engineer.md` — numerical stability, simulation,
+  linear algebra, parallel numerics, and reproducible computation.
 - `@data-engineer` → `agents/data-engineer.md` — batch and streaming pipelines,
   data quality, lineage, schema evolution, and bounded throughput.
 - `@machine-learning-engineer` → `agents/machine-learning-engineer.md` — training
@@ -157,12 +172,32 @@ invocation require the host-specific placement documented in `README.md`.
   onboarding, templates, and developer productivity.
 - `@documentation-engineer` → `agents/documentation-engineer.md` — verified
   architecture, API, operational, and maintenance documentation.
+
+### Education and Assessment
+
+- `@computer-science-educator` → `agents/computer-science-educator.md` —
+  concept teaching, curriculum sequencing, misconception diagnosis, exercises,
+  and mastery checks.
 - `@technical-interviewer` → `agents/technical-interviewer.md` — calibrated
   systems and algorithm interviews, hints, rubrics, and solution critique.
 
 ### Composition Rules
 
 - Route by responsibility, not file extension or framework.
+- Use `@product-manager` for the problem, outcome, priority, and scope;
+  `@user-experience-designer` for flows and interaction; and the relevant
+  application profile for implementation.
+- Add `@formal-methods-engineer` to the domain owner when a critical property
+  needs specification, proof, or model checking; retain empirical testing.
+- Use `@digital-hardware-engineer` for RTL and timing, and
+  `@embedded-firmware-engineer` for software executing on the device.
+- Use `@scientific-computing-engineer` for numerical validity; add performance
+  or distributed expertise only when computation scale makes it dominant.
+- Use `@reverse-engineering-engineer` only for authorized opaque-artifact
+  analysis; add the relevant systems, protocol, or security profile by risk.
+- Use `@computer-science-educator` for teaching and
+  `@technical-interviewer` for assessment; add one domain expert for advanced
+  subject matter when needed.
 - Use `@backend-engineer` plus `@contract-compatibility-engineer` for public API
   or application-schema evolution.
 - Use `@mlops-engineer` for the model lifecycle, registries, serving, monitoring,
@@ -202,8 +237,20 @@ invocation require the host-specific placement documented in `README.md`.
 
 ## Ambiguity Upscaling
 
-For short, vague, or underspecified requests, silently convert the request into
-a professional execution contract before acting:
+Route short, vague, or underspecified requests by decision impact:
+
+1. When reversible professional defaults preserve the likely outcome, read
+   `skills/prompt-upscaler/SKILL.md`, silently form the execution contract, and
+   proceed without exposing the internal expansion.
+2. When a missing choice materially changes scope, public behavior, data
+   handling, safety, cost, compatibility, acceptance, or irreversible state,
+   read `skills/requirement-griller/SKILL.md`, ask one to five high-leverage
+   questions, and wait for the answers.
+3. When `/upscale` is invoked explicitly, read
+   `skills/prompt-upscaler/SKILL.md` and return the contract only. Do not execute
+   it in that workflow.
+
+In every path:
 
 - infer only reversible, conventional defaults;
 - identify the objective, affected surface, invariants, constraints, acceptance
@@ -212,11 +259,11 @@ a professional execution contract before acting:
 - choose bounded algorithms and testable module boundaries;
 - include failure handling, edge cases, cleanup, and regression coverage;
 - state only assumptions that materially affect the result;
-- ask one focused question only when alternatives would produce meaningfully
-  different or irreversible outcomes.
+- never treat an upscaled contract or clarification answer as expanded authority.
 
-Do not burden the user with this internal expansion. Deliver the completed
-result or a concise blocker.
+Do not burden the user with internal expansion when safe defaults suffice.
+Deliver the completed result, the explicit contract, or the focused question
+gate selected above.
 
 ## Mandatory Silent Audit
 
@@ -308,15 +355,95 @@ exhaustive testing, or proven complexity without evidence.
 - Avoid repeating the prompt, tool logs, or unchanged code.
 - Explain decisions, risks, and validation; omit routine process commentary.
 
-## Available Execution Paths
+## Skill Routing Registry
 
-- Prompt specification: `skills/prompt-upscaler/upscale.py`
-- Static technical review: `skills/code-griller/grill.py`
-- Safe local process execution: `skills/shell-exec/exec.py`
-- Git state and explicit staging: `skills/git-manager/git_sync.py`
-- Ranked repository search: `skills/repo-search/search.py`
-- C memory diagnostics: `skills/mem-leak-auditor/audit_memory.py`
-- Regression harness generation: `skills/test-generator/build_tests.py`
-- Mermaid architecture mapping: `skills/architecture-mapper/map_repo.py`
+Skills load on demand; do not preload unrelated guidance. Select one primary
+skill by requested artifact or dominant risk and at most two supporting skills
+for clear boundary crossings. Read the relevant `skills/<name>/SKILL.md` before
+using it. A skill narrows method, not authority, and never authorizes execution,
+writes, network access, or external mutation by itself.
 
-Read the associated `SKILL.md` before using an execution path.
+### Clarify, Decide, and Plan
+
+- `prompt-upscaler` — safely defaultable vague work or explicit `/upscale`;
+  utility: `skills/prompt-upscaler/upscale.py`.
+- `requirement-griller` — material ambiguity requiring a focused question gate.
+- `assumption-auditor` — hidden premises that could invalidate a claim or plan.
+- `task-planner` — ordered implementation steps, dependencies, checks, and rollback.
+- `architecture-decision` — consequential design options and quality tradeoffs.
+- `adr-writer` — preserve an accepted or proposed decision without inventing it.
+- `change-impact-analyzer` — direct and transitive blast radius before change.
+- `migration-planner` — staged coexistence, backfill, rollout, and rollback.
+
+### Design Systems and Interfaces
+
+- `frontend-design` — distinctive responsive, accessible interface implementation.
+- `api-designer` — stable API schemas, errors, security, and compatibility.
+- `database-designer` — application schemas, queries, indexes, and transactions.
+- `distributed-systems-design` — failure models, consistency, scale, and recovery.
+- `systems-programming` — low-level ownership, binary handling, and OS interaction.
+- `algorithm-designer` — invariant-led algorithms, proofs, bounds, and tests.
+- `cli-designer` — composable commands, flags, output, errors, and exit codes.
+- `configuration-designer` — typed configuration, precedence, secrets, and migration.
+- `error-handling` — propagation, cleanup, retry, cancellation, and fallback contracts.
+- `observability-design` — diagnostic metrics, logs, traces, alerts, and runbooks.
+
+### Understand, Learn, and Model
+
+- `code-explainer` — evidence-backed control, data, ownership, and cost walkthroughs.
+- `complexity-coach` — guided derivation of time and space complexity.
+- `learning-tutor` — adaptive concept teaching, practice, and misconception repair.
+- `interview-coach` — calibrated mock interviews, hints, rubrics, and feedback.
+- `rubber-duck` — one-question-at-a-time Socratic problem solving.
+- `invariant-miner` — candidate contracts derived and classified from evidence.
+- `architecture-mapper` — static Mermaid topology and inferred calls;
+  utility: `skills/architecture-mapper/map_repo.py`.
+
+### Search, Execute, and Investigate
+
+- `repo-search` — bounded ranked source and configuration search;
+  utility: `skills/repo-search/search.py`.
+- `shell-exec` — bounded direct-argument local process execution;
+  utility: `skills/shell-exec/exec.py`.
+- `git-manager` — local Git state, diffs, trees, staging, and SSH diagnostics;
+  utility: `skills/git-manager/git_sync.py`.
+- `debugging-playbook` — reproducible hypothesis reduction for runtime defects.
+- `execution-tracer` — bounded calls, syscalls, files, allocations, and timing traces.
+- `reproducer-builder` — minimal deterministic failure reproductions.
+- `regression-bisector` — first-bad-change search with a deterministic predicate.
+- `sanitizer-runner` — C or C++ memory, undefined-behavior, race, and leak checks.
+- `mem-leak-auditor` — strict C compilation plus bounded Valgrind analysis;
+  utility: `skills/mem-leak-auditor/audit_memory.py`.
+- `performance-profiler` — measured CPU, memory, I/O, latency, and contention diagnosis.
+- `benchmark-harness` — reproducible workloads, sampling, summaries, and thresholds.
+
+### Review and Assurance
+
+- `code-griller` — uncompromising read-only static critique;
+  utility: `skills/code-griller/grill.py`.
+- `code-review` — independent diff or patch findings ranked by severity.
+- `edge-case-hunter` — boundary, malformed-input, numerical, and recovery gaps.
+- `concurrency-review` — races, deadlocks, atomicity, publication, and lifecycle.
+- `security-threat-model` — assets, trust boundaries, abuse cases, and mitigations.
+- `privacy-review` — personal-data purpose, flow, retention, deletion, and control.
+- `accessibility-auditor` — semantic, input, focus, visual, and assistive-tech barriers.
+
+### Test Quality
+
+- `test-strategy` — risk-ranked selection of test layers and oracles.
+- `test-generator` — non-overwriting Python or C regression scaffolds;
+  utility: `skills/test-generator/build_tests.py`.
+- `property-test-designer` — invariants, generators, shrinking, seeds, and oracles.
+- `fuzzing-strategy` — bounded harnesses, corpora, sanitizers, and crash triage.
+- `coverage-analyzer` — line, branch, condition, path, and changed-code gaps.
+- `mutation-tester` — surviving mutants and stronger behavioral assertions.
+
+### Change, Delivery, and Documentation
+
+- `refactoring-guide` — behavior-preserving boundary and cohesion improvements.
+- `dependency-upgrader` — explicit package, runtime, compiler, or toolchain upgrades.
+- `project-bootstrapper` — safe non-overwriting project foundations.
+- `ci-pipeline-builder` — deterministic least-privilege CI and release gates.
+- `release-readiness` — evidence-backed go or no-go review and blocker triage.
+- `incident-postmortem` — blameless impact, timeline, causes, and prevention.
+- `documentation-writer` — verified task-oriented technical documentation.

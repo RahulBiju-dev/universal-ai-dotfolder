@@ -1,0 +1,4 @@
+interface:
+  display_name: "Database Designer"
+  short_description: "Design schemas, queries, and migrations"
+  default_prompt: "Use $database-designer to design a constraint-safe schema and migration plan for this workload."

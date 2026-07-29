@@ -1,0 +1,19 @@
+---
+description: "Make tests deterministic, contract-focused, failure-sensitive, and maintainable."
+globs: "**/{test,tests,spec,specs,__tests__}/**,**/*.{test,spec}.{js,jsx,ts,tsx},**/test_*.py,**/*_test.{py,go,rs,c,cc,cpp}"
+alwaysApply: false
+---
+
+# Test Quality
+
+- Test observable contracts and invariants, not private implementation shape.
+- Cover success, empty, minimum, maximum, malformed, dependency-failure,
+  cleanup, and reported regression paths as relevant.
+- Make the test fail for the intended bug before relying on it as a regression.
+- Use deterministic clocks, randomness, scheduling, ordering, and external
+  dependencies.
+- Avoid sleeps, shared mutable fixtures, network dependence, and assertions
+  that merely repeat the implementation.
+- Keep each failure diagnostic specific enough to identify the violated
+  contract.
+- Run the narrow test first, then the authoritative affected suite.

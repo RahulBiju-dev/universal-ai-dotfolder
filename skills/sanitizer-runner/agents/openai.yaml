@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sanitizer Runner"
+  short_description: "Run and interpret compiler sanitizers"
+  default_prompt: "Use $sanitizer-runner to instrument and diagnose this low-level failure safely."

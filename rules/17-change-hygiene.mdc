@@ -1,0 +1,18 @@
+---
+description: "Keep changes scoped, preserve user work, and prevent generated debris or accidental external effects."
+globs: "*"
+alwaysApply: true
+---
+
+# Change Hygiene
+
+- Inspect repository status and nearby conventions before editing.
+- Change the smallest complete surface that satisfies the requested behavior.
+- Preserve unrelated, uncommitted, generated, and user-owned work.
+- Do not reformat, rename, upgrade, or reorganize adjacent code without a
+  requirement or demonstrated need.
+- Inspect exact targets before staging, deleting, overwriting, or migrating.
+- Require explicit authority for install, network mutation, commit, push,
+  publication, deployment, credential use, and destructive operations.
+- Review the final diff for scope creep, secrets, debug output, temporary files,
+  and compatibility regressions.

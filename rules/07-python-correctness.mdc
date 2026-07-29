@@ -1,0 +1,19 @@
+---
+description: "Require explicit Python contracts, bounded resource use, safe subprocesses, and deterministic tests."
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Python Correctness
+
+- Use explicit inputs, return values, and exception contracts at public seams.
+- Close files, sockets, processes, executors, and temporary resources with
+  context managers or guaranteed cleanup.
+- Pass subprocess arguments as a vector, avoid implicit shells, set timeouts,
+  and bound captured output.
+- Avoid mutable defaults, broad exception swallowing, hidden global state,
+  repeated full-data copies, and unbounded materialization.
+- Preserve cancellation and original exceptions while adding useful context.
+- Use deterministic ordering where output affects tests, caches, or agents.
+- Cover empty, malformed, boundary, dependency-failure, and cleanup behavior;
+  run project-native lint, type, and test checks when available.

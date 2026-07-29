@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reproducer Builder"
+  short_description: "Build minimal deterministic bug reproducers"
+  default_prompt: "Use $reproducer-builder to reduce this failure to a deterministic regression case."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Decision"
+  short_description: "Compare architecture options and tradeoffs"
+  default_prompt: "Use $architecture-decision to compare these options and recommend an evidence-backed direction."

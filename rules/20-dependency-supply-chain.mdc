@@ -1,0 +1,19 @@
+---
+description: "Control dependency additions and upgrades through necessity, provenance, compatibility, and rollback evidence."
+globs: "**/{package.json,package-lock.json,pnpm-lock.yaml,yarn.lock,requirements*.txt,pyproject.toml,poetry.lock,Pipfile,Pipfile.lock,Cargo.toml,Cargo.lock,go.mod,go.sum,pom.xml,build.gradle,build.gradle.kts,composer.json,composer.lock,Gemfile,Gemfile.lock}"
+alwaysApply: false
+---
+
+# Dependency and Supply Chain
+
+- Add a dependency only when its value exceeds the maintenance, security,
+  licensing, binary-size, and transitive-cost burden.
+- Verify package identity, official source, maintained status, license, and
+  compatible version before selection.
+- Preserve lockfile integrity and review transitive and install-script changes.
+- Prefer the smallest stable version movement that fixes the stated need.
+- Read release notes and migration guidance; check runtime, build, API, and data
+  compatibility.
+- Keep credentials out of package configuration and disable unnecessary
+  lifecycle execution.
+- Run affected build and tests and retain a clear rollback path.

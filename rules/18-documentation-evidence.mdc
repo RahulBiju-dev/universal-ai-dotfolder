@@ -1,0 +1,18 @@
+---
+description: "Keep engineering documentation concise, runnable, source-linked, and synchronized with actual behavior."
+globs: "**/*.{md,mdx,rst,adoc}"
+alwaysApply: false
+---
+
+# Documentation Evidence
+
+- Verify commands, paths, flags, names, examples, prerequisites, and defaults
+  against current source or executed behavior.
+- Distinguish guarantees, current observations, recommendations, and plans.
+- Lead with the reader's task and keep one authoritative definition per fact.
+- Include failure behavior, safety boundaries, rollback, and ownership where
+  operators or contributors need them.
+- Use minimal complete examples with inert fake credentials and safe targets.
+- Link to source definitions instead of duplicating volatile implementation
+  detail.
+- Never claim support, compatibility, or validation that was not established.

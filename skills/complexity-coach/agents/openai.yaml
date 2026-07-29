@@ -1,0 +1,4 @@
+interface:
+  display_name: "Complexity Coach"
+  short_description: "Teach rigorous time and space analysis"
+  default_prompt: "Use $complexity-coach to help me derive the time and space complexity of this code."

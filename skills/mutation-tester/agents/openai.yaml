@@ -1,0 +1,4 @@
+interface:
+  display_name: "Mutation Tester"
+  short_description: "Measure test strength with bounded mutations"
+  default_prompt: "Use $mutation-tester to evaluate the fault-detection strength of these tests."

@@ -1,0 +1,19 @@
+---
+description: "Preserve compatibility and explicit versioning for APIs, schemas, protocols, CLIs, and file formats."
+globs: "**/*.{proto,graphql,openapi},**/{openapi,asyncapi}.{json,yml,yaml},**/{api,apis,schema,schemas,config,configs}/**/*.{json,yml,yaml,toml,sql}"
+alwaysApply: false
+---
+
+# Contract Evolution
+
+- Identify producers, consumers, version skew, defaults, and the authoritative
+  compatibility promise.
+- Prefer additive evolution; reserve removal or reinterpretation for an explicit
+  version or migration.
+- Preserve field meaning, units, nullability, ordering, exit codes, error shape,
+  and unknown-field behavior.
+- Make new readers tolerate old data and new writers safe for old readers when
+  staged rollout requires it.
+- Document deprecation, migration, rollback, and support windows.
+- Add contract, round-trip, fixture, and mixed-version tests.
+- Never infer that an internal-looking structure has no external consumers.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo Search"
+  short_description: "Find implementations across a repository"
+  default_prompt: "Use $repo-search to locate relevant implementations and definitions for this query."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Documentation Writer"
+  short_description: "Write concise evidence-backed technical docs"
+  default_prompt: "Use $documentation-writer to create verified, task-oriented documentation for this code."

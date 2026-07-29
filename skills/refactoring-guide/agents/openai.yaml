@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactoring Guide"
+  short_description: "Plan behavior-preserving refactors"
+  default_prompt: "Use $refactoring-guide to plan a scoped refactor that preserves observable behavior."

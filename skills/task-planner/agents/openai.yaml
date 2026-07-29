@@ -1,0 +1,4 @@
+interface:
+  display_name: "Task Planner"
+  short_description: "Plan dependency-aware engineering work"
+  default_prompt: "Use $task-planner to turn this objective into an ordered, verifiable implementation plan."

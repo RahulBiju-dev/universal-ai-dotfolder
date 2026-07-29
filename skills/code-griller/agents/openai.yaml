@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Griller"
+  short_description: "Find blocking engineering defects"
+  default_prompt: "Use $code-griller to perform a severity-ranked technical critique of these targets."

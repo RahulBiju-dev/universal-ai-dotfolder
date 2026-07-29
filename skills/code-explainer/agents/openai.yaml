@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Explainer"
+  short_description: "Explain code flow, contracts, and costs"
+  default_prompt: "Use $code-explainer to build a precise mental model of this code."

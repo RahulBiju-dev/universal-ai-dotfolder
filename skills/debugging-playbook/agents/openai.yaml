@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debugging Playbook"
+  short_description: "Reduce defects to evidence-backed causes"
+  default_prompt: "Use $debugging-playbook to reproduce this defect and reduce it to an evidence-backed root cause."

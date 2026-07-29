@@ -1,0 +1,18 @@
+---
+description: "Require observable evidence for correctness, safety, performance, coverage, and completion claims."
+globs: "*"
+alwaysApply: true
+---
+
+# Evidence Before Claims
+
+- Separate inspected facts, executed results, static inference, and assumptions.
+- Report the exact checks run and their relevant outcome.
+- Never say tests, builds, lint, types, sanitizers, benchmarks, or audits passed
+  unless they completed successfully in the current work.
+- Treat a narrow check as narrow evidence; do not generalize it to the system.
+- Include reproduction inputs, environment constraints, and measurement method
+  when they materially affect a result.
+- State validation gaps and residual risk concisely.
+- Prefer `path:line`, command, test name, or measured value over confidence
+  language.

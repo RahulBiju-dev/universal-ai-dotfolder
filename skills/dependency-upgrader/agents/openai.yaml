@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dependency Upgrader"
+  short_description: "Upgrade dependencies with bounded risk"
+  default_prompt: "Use $dependency-upgrader to assess and safely implement the requested dependency upgrade."

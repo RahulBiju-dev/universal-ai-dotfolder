@@ -1,0 +1,4 @@
+interface:
+  display_name: "Performance Profiler"
+  short_description: "Measure and explain performance bottlenecks"
+  default_prompt: "Use $performance-profiler to establish a baseline and identify measured performance bottlenecks."

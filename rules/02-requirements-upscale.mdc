@@ -1,0 +1,18 @@
+---
+description: "Convert underspecified requests into bounded engineering contracts and ask only decision-changing questions."
+globs: "*"
+alwaysApply: true
+---
+
+# Requirements Upscale
+
+- Preserve every explicit requirement, exclusion, and authority boundary.
+- Infer only conventional, reversible defaults that preserve public behavior.
+- Internally define objective, scope, invariants, acceptance, validation, and
+  residual risk before implementation.
+- Inspect the workspace before asking for facts the repository can answer.
+- Invoke `requirement-griller` only when an unresolved choice changes scope,
+  behavior, data, safety, cost, compatibility, or irreversible action.
+- Never invent credentials, services, product facts, deadlines, or permission.
+- For explicit `/upscale`, return the specification and stop. For ordinary
+  implementation requests, keep the expansion silent and deliver the work.

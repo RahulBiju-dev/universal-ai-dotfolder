@@ -1,0 +1,53 @@
+---
+description: Enforce memory safety, resource ownership, algorithmic efficiency, modular boundaries, and testability for every code change.
+globs: "*"
+alwaysApply: true
+---
+
+# Architecture Guard
+
+Apply this rule silently to every generated or modified code path.
+
+## Memory and Resource Safety
+
+- Identify the owner and lifetime of each allocation, pointer, handle, file
+  descriptor, socket, lock, thread, subprocess, mapping, and temporary file.
+- Check allocation and system-call results before use.
+- Prove pointer arithmetic and indexing stay inside the originating object.
+- Use overflow-safe size calculations before allocation, copying, or offset
+  movement.
+- Pair every acquisition with explicit cleanup on success, failure, timeout,
+  cancellation, and partial initialization.
+- Prefer scoped ownership, RAII, context managers, and one auditable cleanup
+  path. Reject double release, use-after-free, leaks, dangling references, and
+  hidden ownership transfer.
+
+## Complexity
+
+- Determine time and auxiliary-space complexity for every nontrivial path.
+- Flag data-dependent nested traversal as a potential quadratic defect.
+- Replace unexpected `O(n^2)` work with indexing, hashing, sorting plus linear
+  scan, heaps, graph algorithms, dynamic programming, batching, or streaming as
+  appropriate.
+- Permit quadratic work only when required by the problem or bounded by a small
+  documented invariant.
+- Reject repeated parsing, copying, allocation, I/O, queries, and full scans
+  inside hot loops.
+
+## Architecture
+
+- Keep parsing, domain logic, persistence, transport, orchestration, and
+  presentation behind cohesive interfaces.
+- Enforce dependency direction; core logic must not depend on delivery details.
+- Prefer small pure functions and explicit state over global mutable state.
+- Validate inputs and propagate contextual errors without swallowing failures.
+- Preserve public contracts and compatibility unless the request changes them.
+- Make dependencies injectable or otherwise controllable in tests.
+
+## Verification
+
+- Cover normal, empty, boundary, malformed, dependency-failure, cleanup, and
+  regression paths.
+- Run the cheapest relevant static check before the authoritative test suite.
+- Never claim safety, complexity, coverage, or correctness without evidence.
+- Surface only actionable violations with `path:line`, consequence, and repair.

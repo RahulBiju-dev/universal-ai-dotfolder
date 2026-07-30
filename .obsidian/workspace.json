@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "skills/repo-search/SKILL.md",
+                "file": "agents/full-stack-engineer.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SKILL"
+              "title": "full-stack-engineer"
             }
           }
         ]
@@ -184,5 +184,11 @@
     }
   },
   "active": "7853a9f6c3489eb1",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "agents/data-engineer.md",
+    "agents/database-storage-engineer.md",
+    "agents/application-engineer.md",
+    "agents/accessibility-engineer.md",
+    "skills/repo-search/SKILL.md"
+  ]
 }

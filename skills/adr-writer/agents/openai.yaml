@@ -1,4 +1,0 @@
-interface:
-  display_name: "ADR Writer"
-  short_description: "Record architecture decisions without invention"
-  default_prompt: "Use $adr-writer to record this decision as a concise evidence-backed ADR."

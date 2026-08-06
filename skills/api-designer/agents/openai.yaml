@@ -1,4 +1,0 @@
-interface:
-  display_name: "API Designer"
-  short_description: "Design stable, testable API contracts"
-  default_prompt: "Use $api-designer to specify a compatible, failure-aware API contract for this use case."

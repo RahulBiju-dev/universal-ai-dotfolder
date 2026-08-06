@@ -1,4 +1,0 @@
-interface:
-  display_name: "Accessibility Auditor"
-  short_description: "Find barriers across complete user journeys"
-  default_prompt: "Use $accessibility-auditor to assess this user journey for reproducible accessibility barriers."

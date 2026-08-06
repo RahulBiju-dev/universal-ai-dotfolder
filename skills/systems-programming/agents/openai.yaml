@@ -1,4 +1,0 @@
-interface:
-  display_name: "Systems Programming"
-  short_description: "Engineer safe low-level systems software"
-  default_prompt: "Use $systems-programming to design and review this low-level implementation safely."

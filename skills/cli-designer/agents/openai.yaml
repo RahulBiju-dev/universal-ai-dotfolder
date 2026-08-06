@@ -1,4 +1,0 @@
-interface:
-  display_name: "CLI Designer"
-  short_description: "Design stable and scriptable CLI contracts"
-  default_prompt: "Use $cli-designer to design a safe, composable command-line interface for this tool."

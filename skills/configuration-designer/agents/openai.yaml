@@ -1,4 +1,0 @@
-interface:
-  display_name: "Configuration Designer"
-  short_description: "Design secure typed configuration systems"
-  default_prompt: "Use $configuration-designer to define a typed, secure configuration contract for this application."

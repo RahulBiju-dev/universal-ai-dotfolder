@@ -1,4 +1,0 @@
-interface:
-  display_name: "Edge Case Hunter"
-  short_description: "Find boundary and failure-path gaps"
-  default_prompt: "Use $edge-case-hunter to identify reachable boundary and recovery gaps in the selected code."

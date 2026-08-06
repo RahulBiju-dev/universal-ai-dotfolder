@@ -1,4 +1,0 @@
-interface:
-  display_name: "Test Strategy"
-  short_description: "Build risk-based, layered test strategies"
-  default_prompt: "Use $test-strategy to produce a risk-ranked verification plan for this change."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Architecture Mapper"
-  short_description: "Map repository structure and calls"
-  default_prompt: "Use $architecture-mapper to map repository dependencies and inferred calls."

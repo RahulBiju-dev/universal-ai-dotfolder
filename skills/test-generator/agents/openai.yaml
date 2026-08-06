@@ -1,4 +1,0 @@
-interface:
-  display_name: "Test Generator"
-  short_description: "Build boundary and regression tests"
-  default_prompt: "Use $test-generator to inspect this source and build a non-overwriting regression harness."

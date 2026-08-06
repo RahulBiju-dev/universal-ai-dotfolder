@@ -1,4 +1,0 @@
-interface:
-  display_name: "Security Threat Model"
-  short_description: "Map attack paths and prioritized controls"
-  default_prompt: "Use $security-threat-model to map trust boundaries, credible threats, controls, and residual risk."

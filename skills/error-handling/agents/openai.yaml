@@ -1,4 +1,0 @@
-interface:
-  display_name: "Error Handling"
-  short_description: "Harden error propagation and recovery"
-  default_prompt: "Use $error-handling to trace failure paths and define safe propagation, cleanup, and recovery."

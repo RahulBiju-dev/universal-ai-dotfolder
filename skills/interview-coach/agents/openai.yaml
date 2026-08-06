@@ -1,4 +1,0 @@
-interface:
-  display_name: "Interview Coach"
-  short_description: "Run calibrated technical interview practice"
-  default_prompt: "Use $interview-coach to run a realistic mock interview for this topic and level."

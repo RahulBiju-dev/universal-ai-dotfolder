@@ -1,4 +1,0 @@
-interface:
-  display_name: "Coverage Analyzer"
-  short_description: "Find behavioral gaps in test coverage"
-  default_prompt: "Use $coverage-analyzer to identify high-risk behavioral gaps in this test suite."

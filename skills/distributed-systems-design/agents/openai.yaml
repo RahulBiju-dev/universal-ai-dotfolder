@@ -1,4 +1,0 @@
-interface:
-  display_name: "Distributed Systems Design"
-  short_description: "Design resilient distributed architectures"
-  default_prompt: "Use $distributed-systems-design to design this service around explicit guarantees and failures."

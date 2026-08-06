@@ -1,4 +1,0 @@
-interface:
-  display_name: "Algorithm Designer"
-  short_description: "Design provably correct efficient algorithms"
-  default_prompt: "Use $algorithm-designer to derive a correct algorithm, proof sketch, complexity, and adversarial tests."

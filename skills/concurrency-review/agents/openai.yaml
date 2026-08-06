@@ -1,4 +1,0 @@
-interface:
-  display_name: "Concurrency Review"
-  short_description: "Find races, deadlocks, and lifecycle bugs"
-  default_prompt: "Use $concurrency-review to find correctness and lifecycle defects in this concurrent code."

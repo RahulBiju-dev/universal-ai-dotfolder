@@ -1,4 +1,0 @@
-interface:
-  display_name: "Mem Leak Auditor"
-  short_description: "Compile and audit C memory behavior"
-  default_prompt: "Use $mem-leak-auditor to compile and run a bounded memory audit on these C sources."

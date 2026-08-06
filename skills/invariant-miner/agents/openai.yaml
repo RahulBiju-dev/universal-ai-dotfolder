@@ -1,4 +1,0 @@
-interface:
-  display_name: "Invariant Miner"
-  short_description: "Derive candidate invariants from evidence"
-  default_prompt: "Use $invariant-miner to extract evidence-backed candidate invariants from this code and its tests."

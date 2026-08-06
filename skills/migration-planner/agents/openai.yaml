@@ -1,4 +1,0 @@
-interface:
-  display_name: "Migration Planner"
-  short_description: "Design staged and reversible migrations"
-  default_prompt: "Use $migration-planner to design a staged migration with compatibility gates and rollback."

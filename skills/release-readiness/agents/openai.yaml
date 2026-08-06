@@ -1,4 +1,0 @@
-interface:
-  display_name: "Release Readiness"
-  short_description: "Assess evidence for safe release decisions"
-  default_prompt: "Use $release-readiness to produce an evidence-based go, conditional-go, or no-go assessment."

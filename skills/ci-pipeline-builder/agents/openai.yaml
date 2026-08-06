@@ -1,4 +1,0 @@
-interface:
-  display_name: "CI Pipeline Builder"
-  short_description: "Build secure deterministic CI pipelines"
-  default_prompt: "Use $ci-pipeline-builder to create a secure, deterministic validation pipeline for this repository."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Change Impact Analyzer"
-  short_description: "Map change blast radius and compatibility"
-  default_prompt: "Use $change-impact-analyzer to map the direct and transitive effects of this proposed change."

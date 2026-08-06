@@ -1,4 +1,0 @@
-interface:
-  display_name: "Observability Design"
-  short_description: "Design actionable metrics, logs, and traces"
-  default_prompt: "Use $observability-design to specify actionable signals, alerts, correlation, and runbook needs."

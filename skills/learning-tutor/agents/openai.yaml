@@ -1,4 +1,0 @@
-interface:
-  display_name: "Learning Tutor"
-  short_description: "Teach CS concepts with adaptive practice"
-  default_prompt: "Use $learning-tutor to teach me this concept with a concise explanation and active practice."

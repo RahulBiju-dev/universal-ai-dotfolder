@@ -1,4 +1,0 @@
-interface:
-  display_name: "Shell Exec"
-  short_description: "Run bounded local commands safely"
-  default_prompt: "Use $shell-exec to run this local command with bounded time and concise captured output."

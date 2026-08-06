@@ -1,4 +1,0 @@
-interface:
-  display_name: "Prompt Upscaler"
-  short_description: "Turn vague requests into execution contracts"
-  default_prompt: "Use $prompt-upscaler to turn this vague request into a safe execution contract."

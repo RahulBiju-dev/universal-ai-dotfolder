@@ -1,4 +1,0 @@
-interface:
-  display_name: "Fuzzing Strategy"
-  short_description: "Plan bounded and effective fuzz campaigns"
-  default_prompt: "Use $fuzzing-strategy to build a safe, bounded fuzzing plan for this input boundary."

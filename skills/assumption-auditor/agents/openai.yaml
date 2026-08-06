@@ -1,4 +1,0 @@
-interface:
-  display_name: "Assumption Auditor"
-  short_description: "Expose risky assumptions and evidence gaps"
-  default_prompt: "Use $assumption-auditor to identify the assumptions that could invalidate this proposal."

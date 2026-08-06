@@ -1,4 +1,0 @@
-interface:
-  display_name: "Frontend Design"
-  short_description: "Build distinctive accessible interfaces"
-  default_prompt: "Use $frontend-design to build a distinctive, responsive, accessible interface."

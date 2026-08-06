@@ -1,0 +1,31 @@
+---
+description: Enforce evidence, resource ownership, and bounded scope on every generated or modified code path.
+globs: "*"
+alwaysApply: true
+---
+
+# Example Guard
+
+This rule is the always-on baseline and the structural example for new rules.
+Apply it silently; surface findings only when they change the answer.
+
+## Ownership And Resources
+
+- Identify the owner and lifetime of each allocation, handle, lock, thread,
+  subprocess, and temporary file.
+- Check allocation, arithmetic, indexing, I/O, and system call results.
+- Pair every acquisition with cleanup on success, failure, timeout, cancellation,
+  and partial initialization.
+
+## Scope
+
+- Keep changes inside the surface the request names.
+- Preserve public contracts and established behavior unless change is requested.
+- Reject generated debris, unrelated reformatting, and speculative abstraction.
+
+## Evidence
+
+- Never claim a test passed, a bound holds, or a path is safe without an executed
+  check.
+- Report findings as `path:line`, consequence, and repair.
+- Separate verified facts from recommendations and untested assumptions.

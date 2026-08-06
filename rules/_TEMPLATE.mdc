@@ -1,0 +1,29 @@
+---
+description: One sentence stating what this rule enforces, written so a host can decide when to attach it.
+globs: "**/*.{ext,ext}"
+alwaysApply: false
+---
+
+# Rule Title
+
+Copy this file to `rules/NN-kebab-name.mdc`, where `NN` continues the existing
+two-digit sequence without a gap. Set `alwaysApply: true` only for short global
+rules; leave it false so the rule attaches by glob or model decision.
+
+Use `globs: "*"` together with `alwaysApply: true` for a global rule.
+
+## First Concern
+
+- Write directives as imperative bullets a model can check against a diff.
+- Name the specific defect class the bullet prevents.
+- Keep each bullet independently verifiable.
+
+## Second Concern
+
+- Group related directives under a heading rather than one long list.
+- Prefer concrete prohibitions over general encouragement.
+
+## Evidence
+
+- Require an executed check before any claim of safety or correctness.
+- Require findings to carry `path:line`, consequence, and repair.

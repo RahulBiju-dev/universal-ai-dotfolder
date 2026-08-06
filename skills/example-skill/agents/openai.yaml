@@ -1,0 +1,4 @@
+interface:
+  display_name: "Example Skill"
+  short_description: "Reference package for authoring new skills"
+  default_prompt: "Use $example-skill to show the structural contract a new skill package must satisfy."

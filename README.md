@@ -1,10 +1,15 @@
 # Universal AI Engineering Dotfolder
 
 A portable software-engineering control plane for a computer science student
-using Cursor, Claude Code, and Google Antigravity. It combines 50 specialist
-agent personas, 56 on-demand skills, 53 slash routes per supported command host,
-20 Cursor rules (5 global and 15 conditional), and deterministic local
-validation.
+using Cursor, Claude Code, and Google Antigravity. One policy body, one set of
+agent personas, and one skill library serve all three hosts, backed by
+deterministic local validation.
+
+> **This branch is a scaffold.** The payload was cleared so the skill and command
+> library can be rebuilt from scratch. What remains is the structure, the format
+> contract, one worked example threaded through every registry, and copy-ready
+> authoring templates. The previous full set of personas, skills, commands,
+> workflows, and rules is still on `main`.
 
 The design assumes prompts may be short. Safe ambiguity is silently expanded
 into a professional execution contract; decision-changing ambiguity triggers a
@@ -18,17 +23,26 @@ universal-ai-dotfolder/
 ├── .gitignore                local Python and test artifact exclusions
 ├── AGENTS.md                 canonical workspace policy and routing registry
 ├── CLAUDE.md                 Claude Code import bridge
-├── agents/                   50 flat portable persona definitions
-├── commands/                 53 Cursor and Claude Code slash commands
-├── workflows/                53 Antigravity slash trajectories
-├── rules/                    20 Cursor rule files
-├── skills/                   56 on-demand skill packages
-│   └── skill-name/
+├── agents/                   flat portable persona definitions
+│   ├── _TEMPLATE.md          authoring template
+│   └── example-engineer.md   worked example
+├── commands/                 Cursor and Claude Code slash commands
+│   ├── _TEMPLATE.md
+│   └── example.md
+├── workflows/                Antigravity slash trajectories
+│   ├── _TEMPLATE.md
+│   └── example.md
+├── rules/                    Cursor rule files
+│   ├── _TEMPLATE.mdc
+│   └── 01-example-guard.mdc
+├── skills/                   on-demand skill packages
+│   ├── _template/            authoring template package
+│   └── example-skill/
 │       ├── SKILL.md          routing description and operating contract
 │       ├── agents/
 │       │   └── openai.yaml   concise discovery metadata
 │       ├── references/       deep guidance only where the skill requires it
-│       └── utility.py        present only for executable utility skills
+│       └── example_utility.py  present only for executable utility skills
 ├── scripts/
 │   └── validate_workspace.py deterministic registry and structure validator
 └── tests/
@@ -36,8 +50,11 @@ universal-ai-dotfolder/
 ```
 
 Each skill is self-contained and loaded only after routing selects it. The
-always-loaded context therefore stays compact even though the toolkit covers a
-wide engineering surface.
+always-loaded context therefore stays compact even as the toolkit grows to cover
+a wide engineering surface.
+
+Files and directories whose name begins with an underscore are authoring
+templates. They are copy sources, never routed to, and skipped by the validator.
 
 ```mermaid
 flowchart LR
@@ -63,6 +80,9 @@ copying host-native artifacts.
 | Claude Code | `agents/*.md` → `.claude/agents/`; `commands/` → `.claude/commands/`; `skills/` → `.claude/skills/` |
 | Antigravity | `agents/*.md` → `.agents/agents/`; `workflows/` → `.agents/workflows/`; `skills/` → `.agents/skills/` |
 
+Exclude the underscore-prefixed templates when copying, so no host registers a
+`/_TEMPLATE` route or offers a template package for selection.
+
 Keep `AGENTS.md` at the project root. Cursor and Antigravity read it as
 workspace context. Claude Code reads `CLAUDE.md`, which imports `AGENTS.md`, so
 all three hosts share one policy body.
@@ -82,15 +102,15 @@ repository-specific behavior.
 ### Cursor
 
 1. Root `AGENTS.md` establishes the workspace contract and portable aliases.
-2. `.cursor/rules/*.mdc` attaches the five short global rules and only the
-   language or domain rules whose globs or descriptions match the active work.
+2. `.cursor/rules/*.mdc` attaches the short global rules and only the language or
+   domain rules whose globs or descriptions match the active work.
 3. `.cursor/commands/*.md` exposes the slash routes.
 4. `.cursor/agents/*.md` enables native specialist delegation from profile
-   descriptions; `/backend-engineer` explicitly selects that persona.
+   descriptions; `/example-engineer` explicitly selects that persona.
 5. `.cursor/skills/*/SKILL.md` supplies the selected task method without loading
    the entire library.
 
-`@agents/backend-engineer.md` attaches the canonical file as context. Native
+`@agents/example-engineer.md` attaches the canonical file as context. Native
 agent selection and a file attachment are distinct operations.
 
 ### Claude Code
@@ -98,12 +118,12 @@ agent selection and a file attachment are distinct operations.
 1. Root `CLAUDE.md` imports `AGENTS.md`.
 2. `.claude/commands/*.md` exposes the same slash routes as Cursor.
 3. `.claude/agents/*.md` enables automatic delegation by description,
-   `@agent-backend-engineer` for a specific task, and
-   `claude --agent backend-engineer` for a session.
+   `@agent-example-engineer` for a specific task, and
+   `claude --agent example-engineer` for a session.
 4. `.claude/skills/*/SKILL.md` provides the routed workflow and any bounded
    utility or reference it names.
 
-Plain `@agents/backend-engineer.md` imports file context; it does not create a
+Plain `@agents/example-engineer.md` imports file context; it does not create a
 native isolated subagent.
 
 ### Google Antigravity
@@ -116,11 +136,11 @@ native isolated subagent.
 4. `.agents/skills/*/SKILL.md` supplies the selected operating contract.
 
 Antigravity consumes `workflows/`, while Cursor and Claude Code consume
-`commands/`. Every basename is paired, so `/profile`, `/frontend`, or `/audit`
-has the same intent across hosts.
+`commands/`. Every basename is paired, so a route has the same intent across
+hosts.
 
 Without native installation, use a portable instruction such as
-`Use @agents/backend-engineer.md for this API change`. The root registry tells
+`Use @agents/example-engineer.md for this API change`. The root registry tells
 the active model to adopt the attached profile for that task. This does not
 create an isolated subagent.
 
@@ -135,181 +155,49 @@ Platform behavior and placement were checked against official documentation on
 - [Claude Code subagents](https://code.claude.com/docs/en/sub-agents) and
   [workspace memory](https://code.claude.com/docs/en/memory)
 
-## Agent Persona Registry
+## Authoring
 
-Profiles are flat for cross-host portability. Every file has a unique
-lowercase-hyphenated name, a routing-focused description, `model: inherit`, and
-Role, Scope, Guardrails, Workflow, and Output Contract sections.
+`scripts/validate_workspace.py` enforces the contract below. Copy the matching
+template, fill it in, then run the validator.
 
-### Leadership and Architecture
-
-`principal-software-architect`, `solutions-architect`,
-`staff-software-engineer`, `technical-lead`, `engineering-manager`,
-`generalist-software-engineer`
-
-### Product, Experience, and Applications
-
-`product-manager`, `user-experience-designer`, `application-engineer`,
-`frontend-engineer`, `backend-engineer`, `full-stack-engineer`,
-`mobile-engineer`, `desktop-engineer`, `game-engineer`,
-`accessibility-engineer`
-
-### Systems and Domain Engineering
-
-`systems-programming-engineer`, `embedded-firmware-engineer`,
-`kernel-engineer`, `compiler-toolchain-engineer`,
-`distributed-systems-engineer`, `networking-protocol-engineer`,
-`database-storage-engineer`, `graphics-realtime-engineer`,
-`robotics-controls-engineer`, `digital-hardware-engineer`,
-`scientific-computing-engineer`, `reverse-engineering-engineer`
-
-### Algorithms, Data, AI, and Education
-
-`algorithm-engineer`, `formal-methods-engineer`, `data-engineer`,
-`machine-learning-engineer`, `mlops-engineer`, `ai-systems-engineer`,
-`research-engineer`, `computer-science-educator`
-
-### Assurance, Delivery, and Operations
-
-`debugging-investigator`, `code-reviewer`, `test-reliability-engineer`,
-`security-engineer`, `performance-engineer`,
-`contract-compatibility-engineer`, `repository-maintainer`,
-`build-release-engineer`, `platform-devops-engineer`,
-`cloud-infrastructure-engineer`, `site-reliability-engineer`,
-`developer-experience-engineer`, `documentation-engineer`,
-`technical-interviewer`
-
-Route by dominant responsibility, not language. `AGENTS.md` selects one primary
-profile and at most two supporting profiles when ownership boundaries genuinely
-cross.
-
-## Skill Toolkit
-
-### Intent, Planning, and Learning
-
-`requirement-griller`, `prompt-upscaler`, `task-planner`,
-`assumption-auditor`, `learning-tutor`, `interview-coach`, `rubber-duck`,
-`code-explainer`
-
-### Architecture and Interface Design
-
-`architecture-decision`, `architecture-mapper`, `change-impact-analyzer`,
-`frontend-design`, `api-designer`, `database-designer`,
-`distributed-systems-design`, `systems-programming`, `algorithm-designer`,
-`cli-designer`, `configuration-designer`, `error-handling`,
-`observability-design`
-
-### Review, Correctness, and Security
-
-`code-griller`, `code-review`, `edge-case-hunter`, `complexity-coach`,
-`invariant-miner`, `concurrency-review`, `security-threat-model`,
-`accessibility-auditor`, `privacy-review`
-
-### Test Engineering
-
-`test-strategy`, `test-generator`, `property-test-designer`,
-`fuzzing-strategy`, `coverage-analyzer`, `mutation-tester`
-
-### Diagnostics and Performance
-
-`debugging-playbook`, `execution-tracer`, `reproducer-builder`,
-`regression-bisector`, `sanitizer-runner`, `mem-leak-auditor`,
-`performance-profiler`, `benchmark-harness`
-
-### Change, Delivery, and Repository Work
-
-`project-bootstrapper`, `refactoring-guide`, `dependency-upgrader`,
-`migration-planner`, `ci-pipeline-builder`, `release-readiness`,
-`incident-postmortem`, `documentation-writer`, `adr-writer`, `git-manager`,
-`shell-exec`, `repo-search`
-
-The `requirement-griller` asks one to five decision-linked questions only after
-read-only inspection proves the answer is not locally discoverable. The
-`prompt-upscaler` has two modes: implicit use silently drives execution, while
-explicit `/upscale` returns only Context, Constraints, Objective, and Exact
-Output.
-
-The `frontend-design` skill inspects the existing product language before
-choosing one coherent visual thesis. It rejects generic gradient, glass,
-card-grid, pill-everything, empty oversized hero, emoji-icon, and decorative
-reveal defaults. Its gates cover semantic markup, keyboard operation, visible
-focus, WCAG AA contrast, reduced motion, UI states, touch targets, content
-stress, narrow phones, tablets, desktop widths, and short laptop heights.
-
-Eight skills include executable standard-library utilities:
-
-| Skill | Utility | Purpose |
+| Artifact | Required frontmatter | Additional requirements |
 |---|---|---|
-| `prompt-upscaler` | `upscale.py` | Deterministic four-part prompt structuring |
-| `code-griller` | `grill.py` | Bounded severity-ranked static review |
-| `shell-exec` | `exec.py` | Direct-argument process execution with timeout and output caps |
-| `git-manager` | `git_sync.py` | Concise state, explicit staging, history, and SSH diagnostics |
-| `repo-search` | `search.py` | Ranked bounded repository search |
-| `mem-leak-auditor` | `audit_memory.py` | Strict C compilation and bounded Valgrind parsing |
-| `test-generator` | `build_tests.py` | Non-overwriting Python or C regression harness generation |
-| `architecture-mapper` | `map_repo.py` | Deterministic Mermaid dependency and inferred-call mapping |
+| `agents/<name>.md` | `name`, `description`, `model` | `name` equals the filename stem; `model: inherit`; headings `Role`, `Scope`, `Guardrails`, `Workflow`, `Output Contract` |
+| `skills/<name>/SKILL.md` | `name`, `description` | `name` equals the directory name; description is at least 25 characters and states activation with `Use when`, `Use for`, `Use before`, `Use after`, `Use to`, or `Use implicitly` |
+| `skills/<name>/agents/openai.yaml` | none | `interface:` mapping with quoted `display_name`, `short_description` of 25 to 64 characters, and `default_prompt` containing `$<name>` |
+| `commands/<name>.md` | `description`, `argument-hint` | body references `skills/<skill>/SKILL.md` |
+| `workflows/<name>.md` | `name`, `description` | `name` equals the filename stem; body references `../skills/<skill>/SKILL.md` |
+| `rules/NN-<name>.mdc` | `description`, `globs`, `alwaysApply` | two-digit prefixes contiguous from `01`; at least one rule sets `alwaysApply: true` |
 
-## Slash Route Catalog
+The frontmatter key set must match exactly. Extra or missing keys are errors.
 
-Commands and workflows share basenames. The route reads its mapped `SKILL.md`,
-preserves trailing arguments as task input, inspects relevant context, and
-applies that skill's output and mutation contract.
+Every slash route exists twice, once in `commands/` and once in `workflows/`,
+under the same basename. Both files must resolve to the same skill contract so a
+route means the same thing on every host.
 
-### Intent and Learning
+Text files may not contain unfinished-work markers or a literal ellipsis, and
+every relative Markdown link must resolve. The exact rejected markers are listed
+in `PLACEHOLDER_PATTERNS` in the validator. Skill utilities are standard library
+only, take an explicit argument vector, bound their output, and must be
+executable.
 
-`/upscale`, `/grill-me`, `/plan`, `/assumptions`, `/explain`, `/learn`,
-`/interview`, `/rubber-duck`
+### Adding A Skill
 
-### Design and Architecture
+1. Copy `skills/_template/` to `skills/<name>/` and set `name` in `SKILL.md` to
+   the new directory name.
+2. Fill in `agents/openai.yaml`, including `$<name>` in `default_prompt`.
+3. Keep `references/` only for guidance too long or too optional for the
+   contract; delete it otherwise.
+4. Add a utility only when deterministic local computation genuinely beats
+   prose, then `chmod +x` it.
+5. Copy `commands/_TEMPLATE.md` and `workflows/_TEMPLATE.md` to the same
+   basename and point both at the new skill.
+6. Declare the skill under `### Declared Skills` in `AGENTS.md` using the exact
+   `` - `name` — purpose. `` form the validator parses.
+7. Run `./scripts/validate_workspace.py`.
 
-`/design`, `/impact`, `/frontend`, `/api`, `/database`, `/systems`, `/race`,
-`/distributed`, `/algorithm`, `/cli`, `/config`, `/errors`, `/observability`,
-`/map`
-
-### Review and Risk
-
-`/grill`, `/review`, `/audit`, `/edge-cases`, `/complexity`, `/invariants`,
-`/threat-model`, `/a11y`, `/privacy`
-
-### Testing
-
-`/test`, `/test-strategy`, `/property-test`, `/fuzz`, `/coverage`, `/mutate`
-
-### Diagnostics and Performance
-
-`/debug`, `/trace`, `/repro`, `/bisect`, `/sanitize`, `/profile`, `/bench`
-
-### Change and Delivery
-
-`/bootstrap`, `/refactor`, `/dependencies`, `/migrate`, `/ci`, `/release`,
-`/postmortem`, `/docs`, `/adr`
-
-Read-only review routes never modify code unless the user separately requests a
-fix. Mutating routes remain bounded by the user's original scope and approval
-requirements.
-
-## Rule Set
-
-Five concise rules are always on:
-
-- `01-architecture-guard.mdc`
-- `02-requirements-upscale.mdc`
-- `03-student-learning.mdc`
-- `04-evidence-before-claims.mdc`
-- `17-change-hygiene.mdc`
-
-The remaining rules attach by file match or model decision:
-
-- language and runtime: `05-c-cpp-safety.mdc`,
-  `06-rust-unsafe-boundaries.mdc`, `07-python-correctness.mdc`,
-  `08-concurrency-discipline.mdc`, `09-network-io.mdc`;
-- data and contracts: `10-storage-migrations.mdc`,
-  `16-contract-evolution.mdc`;
-- security and quality: `11-security-privacy.mdc`, `12-test-quality.mdc`,
-  `13-frontend-quality.mdc`, `14-benchmark-rigor.mdc`,
-  `18-documentation-evidence.mdc`, `19-ai-tool-boundaries.mdc`;
-- delivery and provenance: `15-build-reproducibility.mdc`,
-  `20-dependency-supply-chain.mdc`.
+Adding a persona is the same flow against `agents/_TEMPLATE.md`, declared under
+`### Declared Profiles` as `` - `@name` → `agents/name.md` — purpose. ``
 
 ## Validation
 
@@ -319,26 +207,17 @@ Run the complete deterministic structural audit:
 ./scripts/validate_workspace.py
 ```
 
-It verifies agent and skill frontmatter, unique names, root declarations, skill
-UI metadata, command/workflow parity and skill targets, rule ordering, local
-Markdown links, forbidden unfinished markers, Python syntax, and executable
-bits.
+It verifies agent and skill frontmatter, unique names, root registry
+declarations against the files on disk, skill UI metadata, command and workflow
+parity with matching skill targets, rule ordering, local Markdown links,
+forbidden unfinished markers, Python syntax, and executable bits.
 
 Run the validator's regression tests:
 
 ```bash
-python3 -m unittest -v tests/test_validate_workspace.py
+python3 -m unittest -v tests.test_validate_workspace
 ```
 
-Validate skill packages against the official skill-authoring contract:
-
-```bash
-for skill in skills/*; do
-  python3 /home/rahulb/.codex/skills/.system/skill-creator/scripts/quick_validate.py "$skill"
-done
-```
-
-Runtime requirements are Python 3.10 or newer, Git for `git-manager`, and a C
-compiler plus Valgrind for live memory audits. Local code execution uses the
-user's ordinary operating-system access; time and output limits reduce risk but
-are not a security sandbox.
+Runtime requirements are Python 3.10 or newer and Git. Local code execution uses
+the user's ordinary operating-system access; time and output limits reduce risk
+but are not a security sandbox.

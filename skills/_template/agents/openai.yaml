@@ -1,0 +1,4 @@
+interface:
+  display_name: "Title Case Skill Name"
+  short_description: "Between 25 and 64 characters of purpose"
+  default_prompt: "Use $replace-with-directory-name to do the thing this skill exists to do."

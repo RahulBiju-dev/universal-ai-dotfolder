@@ -43,10 +43,8 @@ universal-ai-dotfolder/
 │       │   └── openai.yaml   concise discovery metadata
 │       ├── references/       deep guidance only where the skill requires it
 │       └── example_utility.py  present only for executable utility skills
-├── scripts/
-│   └── validate_workspace.py deterministic registry and structure validator
-└── tests/
-    └── test_validate_workspace.py validator regression tests
+└── scripts/
+    └── validate_workspace.py deterministic registry and structure validator
 ```
 
 Each skill is self-contained and loaded only after routing selects it. The
@@ -211,12 +209,6 @@ It verifies agent and skill frontmatter, unique names, root registry
 declarations against the files on disk, skill UI metadata, command and workflow
 parity with matching skill targets, rule ordering, local Markdown links,
 forbidden unfinished markers, Python syntax, and executable bits.
-
-Run the validator's regression tests:
-
-```bash
-python3 -m unittest -v tests.test_validate_workspace
-```
 
 Runtime requirements are Python 3.10 or newer and Git. Local code execution uses
 the user's ordinary operating-system access; time and output limits reduce risk

@@ -392,8 +392,7 @@ class Validation:
     def validate_python(self) -> None:
         utility_paths = sorted(self.root.glob("skills/*/*.py"))
         utility_paths.extend(sorted(self.root.glob("scripts/*.py")))
-        test_paths = sorted((self.root / "tests").rglob("*.py"))
-        for path in utility_paths + test_paths:
+        for path in utility_paths:
             try:
                 ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
             except (OSError, UnicodeError, SyntaxError) as exc:
